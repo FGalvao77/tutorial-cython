@@ -1,0 +1,72 @@
+# **Guia de configuração: `Cython` _Hello World!_**
+---
+
+1. Preparar o ambiente virtual
+
+- Windows:
+
+`bash 
+# criar o ambiente virtual
+python -m venv venv
+
+# ativar o ambiente
+.\venv\Scripts\activate
+
+
+- Linux/macOS:
+
+`bash 
+# criar o ambiente virtual
+python3 -m venv venv
+
+# ativar o ambiente
+source venv/bin/activate
+
+2. Instalar as dependências
+
+`bash
+pip install cython setuptools
+
+
+3. Estrutura dos arquivos
+
+3.1. `helloworld.pyx`: código Cython
+
+`python
+def say_hello():
+    print('\nHello World!\n')
+
+3.2. `setup.py`: script que gerencia a compilação
+
+`python
+from setuptools import setup
+from Cython.Build import cythonize
+
+setup(
+    ext_modules = cythonize('helloworld.pyx')
+)
+
+
+4. Compilação e execução
+
+4.1. Compilar
+
+`bash
+python setup.py build_ext --inplace
+
+4.2. Testar
+
+`python
+import helloworld
+
+if __name__ == '__main__':
+    print(helloworld.say_hello())
+
+
+5. Outras dicas 
+
+5.1. Limpar builds
+
+`bash
+rm -rf build helloworld.c *.so *.pyd
+
